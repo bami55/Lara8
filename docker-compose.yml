@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: ./docker/web
+    ports:
+      - 80:80
+    privileged: true
+    volumes:
+      - ./src:/var/www/html
+
+  db:
+    image: postgres:12.0-alpine
+    working_dir: /data/pgsql
+    volumes:
+      - ./docker/db/postgresql-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pg
+      POSTGRES_PASSWORD: pg
+      POSTGRES_DB: pgdb
+    ports:
+      - 5432:5432
