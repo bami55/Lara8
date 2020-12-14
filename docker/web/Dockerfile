@@ -1,23 +1,20 @@
-FROM php:8.0.0-apache-buster
-
-SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
-
+FROM php:8.0-apache
 COPY ./php.ini /usr/local/etc/php/
-COPY ./*.conf /etc/apache2/sites-enabled/
+COPY ./apache/*.conf /etc/apache2/sites-enabled/
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y libpq-dev libonig-dev git zip unzip \
+  && apt-get clean \
+  && rm -rf /var/cache/apt
 
+RUN docker-php-ext-install pdo pdo_pgsql
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1 \
-  COMPOSER_HOME /composer
-
-RUN apt-get update && \
-  apt-get -y install git zlib1g-dev libpq-dev libicu-dev libonig-dev libzip-dev unzip locales && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* && \
-  mkdir /var/run/php-fpm && \
-  mkdir /var/log/php && \
-  docker-php-ext-install intl pdo pdo_pgsql zip bcmath && \
-  composer config -g process-timeout 3600 && \
-  composer config -g repos.packagist composer https://packagist.org
+  COMPOSER_HOME /composer \
+  PATH $PATH:/composer/vendor/bin
 
 WORKDIR /var/www/html
+
+RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
+RUN /bin/sh -c a2enmod rewrite
