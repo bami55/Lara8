@@ -106,3 +106,7 @@ protected function create(array $data)
     ]);
 }
 ```
+
+> routeで Route::auth(), Route::get('/home', 'HomeController@index') を
+> Routeグループ middleware 'web' の中に入れておかないとエラーが発生した。
+
