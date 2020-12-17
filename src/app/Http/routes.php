@@ -1,8 +1,9 @@
 <?php
 
 
+
 /*
---------------------------------------------------------------------------
+-------------------------------------------------------------------------
 | Routes File
 |--------------------------------------------------------------------------
 |
@@ -15,27 +16,14 @@ Route::get('/', function () {
     echo 'Welcome to my site';
 });
 
-Route::get('/hello/{name}', function($name) {
-    echo 'Hello There ' . $name;
+Route::get('customer/{id}', function ($id) {
+    $customer = App\Customer::find($id);
+    echo $customer->name;
 });
 
-Route::get('/test', function () {
-    echo '<form method="POST" action="/test">';
-    echo '<input type="submit" value="Submit!">';
-    echo '<input type="hidden" name="_method" value="DELETE">';
-    echo '</form>';
-});
-
-Route::post('/test', function () {
-    echo 'POST';
-});
-
-Route::put('/test', function () {
-    echo 'PUT';
-});
-
-Route::delete('/test', function () {
-    echo 'DELETE';
+Route::get('customer_name', function () {
+    $customer = App\Customer::where('name', '=', 'Bob')->first();
+    echo $customer->id;
 });
 
 /*
