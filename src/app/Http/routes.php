@@ -1,7 +1,8 @@
 <?php
 
+
 /*
-|--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 | Routes File
 |--------------------------------------------------------------------------
 |
@@ -10,9 +11,31 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    echo 'Welcome to my site';
+});
+
+Route::get('/hello/{name}', function($name) {
+    echo 'Hello There ' . $name;
+});
+
+Route::get('/test', function () {
+    echo '<form method="POST" action="/test">';
+    echo '<input type="submit" value="Submit!">';
+    echo '<input type="hidden" name="_method" value="DELETE">';
+    echo '</form>';
+});
+
+Route::post('/test', function () {
+    echo 'POST';
+});
+
+Route::put('/test', function () {
+    echo 'PUT';
+});
+
+Route::delete('/test', function () {
+    echo 'DELETE';
 });
 
 /*
@@ -25,7 +48,6 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
     //
 });
