@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:5.6.32-apache
 COPY ./php.ini /usr/local/etc/php/
 COPY ./apache/*.conf /etc/apache2/sites-enabled/
 
