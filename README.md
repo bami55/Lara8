@@ -7,7 +7,7 @@
 Laravelの初期設定を行う
 
 ```
-docker-compose exec web composer install
+docker-compose exec web composer install --no-scripts
 cp src/.env.example src/.env
 docker-compose exec web php artisan key:generate
 ```
