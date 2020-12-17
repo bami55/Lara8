@@ -2,8 +2,9 @@
 
 
 
+
 /*
--------------------------------------------------------------------------
+------------------------------------------------------------------------
 | Routes File
 |--------------------------------------------------------------------------
 |
@@ -16,14 +17,27 @@ Route::get('/', function () {
     echo 'Welcome to my site';
 });
 
-Route::get('customer/{id}', function ($id) {
+Route::get('customer/{id}', function($id) {
     $customer = App\Customer::find($id);
-    echo $customer->name;
+    echo $customer->name . "<br />";
+    echo "Orders:<br />";
+    echo "<ul>";
+    foreach ($customer->orders as $order) {
+        echo "<li>" . $order->name . "</li>";
+    }
+    echo "</ul>";
 });
 
 Route::get('customer_name', function () {
     $customer = App\Customer::where('name', '=', 'Bob')->first();
     echo $customer->id;
+});
+
+Route::get('orders', function () {
+    $orders = App\Order::all();
+    foreach ($orders as $order) {
+        echo $order->name . " Ordered by " . $order->customer->name . "<br />";
+    }
 });
 
 /*
