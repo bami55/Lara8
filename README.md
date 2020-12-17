@@ -14,9 +14,22 @@ docker-compose exec web php artisan key:generate
 
 ## artisanコマンド
 
+### コマンド一覧表示
+
+```
+docker-compose exec web php artisan
+```
+
 ### Controller
 
 ```
 // Userコントローラー作成
 docker-compose exec web php artisan make:controller Users
+```
+
+### Model
+
+```
+// Customerモデル作成
+docker-compose exec web php artisan make:model Customer
 ```
