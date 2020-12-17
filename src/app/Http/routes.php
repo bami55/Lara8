@@ -16,10 +16,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function () {
-    echo 'Welcome to my site';
-});
-
 Route::get('customer/{id}', 'CustomerController@customer');
 
 Route::get('customer_name', function () {
@@ -55,4 +51,11 @@ Route::get('mypage', function() {
 */
 Route::group(['middleware' => ['web']], function () {
     //
+    Route::auth();
+    Route::get('/', function() {
+        return view('welcome');
+    });
+    Route::get('/home', 'HomeController@index');
 });
+
+
