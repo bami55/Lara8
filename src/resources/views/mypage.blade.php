@@ -6,11 +6,17 @@
 </head>
 <body>
   <h1>Hey This is My Page</h1>
-  <p><?php echo $var1;
-?></p>
-  <p><?php echo $var2;
-?></p>
-  <p><?php echo $var3;
-?></p>
+  <p>{{ $var1 }}</p>
+  @if ($var1 == 'Hamburger')
+    I Love Hamburgers
+  @endif
+  <p>{{ $var2 }}</p>
+  <p>{{ $var3 }}</p>
+
+  <ul>
+    @foreach ($orders as $order)
+      <li>{{ $order->name }}</li>
+    @endforeach
+  </ul>
 </body>
 </html>
