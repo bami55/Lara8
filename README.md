@@ -110,3 +110,49 @@ protected function create(array $data)
 > routeで Route::auth(), Route::get('/home', 'HomeController@index') を
 > Routeグループ middleware 'web' の中に入れておかないとエラーが発生した。
 
+### ログインが必要なページ
+
+MiddlewareのAuthを使用する
+
+Routesでやる方法
+```
+// middleware('auth')をつける
+Route::get('access', function() {
+    echo 'You have access!';
+})->middleware('auth');
+```
+
+Controllerでやる方法
+```
+// コンストラクタにmiddleware('auth')をつける
+public function __construct()
+{
+    $this->middleware('auth');
+}
+```
+
+### ミドルウェアを追加
+
+1. artisanで追加
+```
+php artisan make:middleware AdminMiddleware
+```
+
+2. Kernel.phpに定義追加
+```
+protected $routeMiddleware = [
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+    'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+    'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,   // <- 追加
+];
+```
+
+3. Routesなどで設定
+```
+Route::get('access', function() {
+    echo 'You have access!';
+})->middleware('isAdmin');
+```
+

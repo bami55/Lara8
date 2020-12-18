@@ -56,6 +56,10 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
     Route::get('/home', 'HomeController@index');
+
+    Route::get('access', function() {
+        echo 'You have access!';
+    })->middleware('isAdmin');
 });
 
 
