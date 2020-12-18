@@ -49,6 +49,9 @@ Route::get('mypage', function() {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+
+use Illuminate\Http\Request;
+
 Route::group(['middleware' => ['web']], function () {
     //
     Route::auth();
@@ -56,10 +59,17 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
     Route::get('/home', 'HomeController@index');
-
+    
     Route::get('access', function() {
         echo 'You have access!';
     })->middleware('isAdmin');
+
+    Route::get('form', function() {
+        return view('form');
+    });
+    Route::post('post_to_me', function(Request $request) {
+        echo $request->input('name');
+    });
 });
 
 

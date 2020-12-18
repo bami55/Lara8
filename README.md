@@ -186,3 +186,30 @@ public function down()
 ```shell
 docker-compose exec web php artisan migrate
 ```
+
+## CSRF
+
+フォームにトークンを追加する
+```html
+<form action="post_to_me" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="text" name="name">
+    <input type="submit" value="登録">
+</form>
+```
+
+Routesでwebのグループに含める
+```php
+use Illuminate\Http\Request;
+
+Route::group(['middleware' => ['web']], function () {
+    ...
+
+    Route::get('form', function() {
+        return view('form');
+    });
+    Route::post('post_to_me', function(Request $request) {
+        echo $request->input('name');
+    });
+}
+```
