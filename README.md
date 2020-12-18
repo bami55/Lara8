@@ -34,7 +34,7 @@ docker-compose exec web php artisan make:controller Users
 docker-compose exec web php artisan make:model Customer
 ```
 
-### ユーザーログイン認証
+## ユーザーログイン認証
 
 1. authを作る
 ```shell
@@ -110,7 +110,7 @@ protected function create(array $data)
 > routeで Route::auth(), Route::get('/home', 'HomeController@index') を
 > Routeグループ middleware 'web' の中に入れておかないとエラーが発生した。
 
-### ログインが必要なページ
+## ログインが必要なページ
 
 MiddlewareのAuthを使用する
 
@@ -131,7 +131,7 @@ public function __construct()
 }
 ```
 
-### ミドルウェアを追加
+## ミドルウェアを追加
 
 1. artisanで追加
 ```shell
@@ -156,9 +156,9 @@ Route::get('access', function() {
 })->middleware('isAdmin');
 ```
 
-### マイグレーション
+## マイグレーション
 
-#### カラムを追加する方法
+### カラムを追加する方法
 1. usersにadminカラムを追加するので、マイグレーションファイルを用意する
 ```shell
 docker-compose exec web php artisan make:migration add_admin_to_users_table --table=users 
