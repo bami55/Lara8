@@ -182,3 +182,7 @@ public function down()
 }
 ```
 
+3. マイグレーション実行
+```shell
+docker-compose exec web php artisan migrate
+```
