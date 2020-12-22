@@ -13,6 +13,7 @@
 </head>
 <body>
   <h1>Page 1</h1>
+  {{ $text }}
   <div class="page-break"></div>
   <h1>Page 2</h1>
 </body>

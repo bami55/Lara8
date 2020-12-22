@@ -9,7 +9,7 @@ class PdfController extends Controller
 {
 	//
 	public function download() {
-		$data = [];
+		$data = ['text' => 'text value'];
 		$pdf = PDF::loadView('pdf.sample', $data)->setPaper('A4', 'landscape');
 		return $pdf->download('sample.pdf');
 	}
