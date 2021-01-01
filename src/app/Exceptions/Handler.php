@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Utilities\RequestUtil;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -59,7 +60,11 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
+        
+        // ログインへ遷移
+        $prefix = RequestUtil::getPrefix($request);
+        $redirect = route($prefix . '.login');
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest($redirect);
     }
 }
