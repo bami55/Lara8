@@ -4,7 +4,7 @@ services:
   web:
     build: ./docker/web
     ports:
-      - 80:80
+      - 8080:80
     privileged: true
     volumes:
       - ./src:/var/www/html
@@ -19,7 +19,7 @@ services:
       POSTGRES_PASSWORD: pg
       POSTGRES_DB: pgdb
     ports:
-      - 5432:5432
+      - 54321:5432
 
 volumes:
   db-store:

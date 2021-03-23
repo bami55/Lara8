@@ -20,3 +20,12 @@ docker-compose exec web php artisan key:generate
 // Userコントローラー作成
 docker-compose exec web php artisan make:controller Users
 ```
+
+## JWT-Authのインストール
+
+### composer install
+
+```
+// "--ignore-platform-reqs" をつけないとエラーになる
+composer require tymon/jwt-auth --ignore-platform-reqs
+```
